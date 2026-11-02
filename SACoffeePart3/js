@@ -1,0 +1,39 @@
+document.addEventListener('DOMContentLoaded',function(){
+  // Accordion
+  document.querySelectorAll('.accordion-btn').forEach(b=>b.addEventListener('click',()=>b.nextElementSibling.classList.toggle('active')));
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',function(){
+    document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+    document.getElementById(this.dataset.tab).classList.add('active');
+  }));
+  // Modal
+  const m=document.getElementById('serviceModal');
+  if(m){document.querySelector('.open-modal')?.addEventListener('click',()=>m.classList.add('active'));m.addEventListener('click',()=>m.classList.remove('active'))}
+  // Lightbox
+  const lb=document.getElementById('lightbox');
+  document.querySelectorAll('.gallery-grid img').forEach(i=>i.addEventListener('click',()=>{document.getElementById('lightboxImg').src=i.src;lb.classList.add('active')}));
+  if(lb)lb.addEventListener('click',()=>lb.classList.remove('active'));
+  // Map
+  if(document.getElementById('map')&&typeof L!=='undefined'){
+    const map=L.map('map').setView([-26.2041,28.0473],13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/tiles/{z}/{x}/{y}.png').addTo(map);
+    L.marker([-26.2041,28.0473]).addTo(map).bindPopup('SA Coffee - 12 Risebank Mall, Johannesburg').openPopup();
+  }
+  // Dynamic Content
+  const dc=document.getElementById('dynamic-services');
+  if(dc){['Retail Beans R120/kg','Wholesale for Cafes','Mobile Barista Catering'].forEach(t=>{const d=document.createElement('div');d.innerHTML=`<h3>${t}</h3>`;dc.appendChild(d)})}
+  // Search Filter
+  const s=document.getElementById('searchInput');
+  if(s)s.addEventListener('input',function(){const v=this.value.toLowerCase();document.querySelectorAll('#serviceList li').forEach(li=>li.style.display=li.textContent.toLowerCase().includes(v)?'':'none')});
+  // Enquiry Validation
+  const ef=document.getElementById('enquiryForm');
+  if(ef)ef.addEventListener('submit',e=>{e.preventDefault();const n=document.getElementById('name').value.trim(),em=document.getElementById('email').value.trim(),msg=document.getElementById('message').value.trim(),err=document.getElementById('formError');
+    if(n.length<3){err.textContent='Name must be at least 3 characters.';return}
+    if(!em.includes('@')){err.textContent='Enter valid email.';return}
+    if(msg.length<10){err.textContent='Message must be at least 10 characters.';return}
+    err.textContent='';document.getElementById('formSuccess').textContent=`Thank you ${n}! We will reply to ${em} within 24 hours.`;ef.reset();});
+  // Contact Form -> Email
+  const cf=document.getElementById('contactForm');
+  if(cf)cf.addEventListener('submit',e=>{e.preventDefault();const n=document.getElementById('cname').value,em=document.getElementById('cemail').value,t=document.getElementById('ctype').value,msg=document.getElementById('cmessage').value;
+    window.location.href=`mailto:info@sacoffee.co.za?subject=${encodeURIComponent('SA Coffee Contact: '+t+' from '+n)}&body=${encodeURIComponent(msg)}%0AFrom: ${em}`;});
+});

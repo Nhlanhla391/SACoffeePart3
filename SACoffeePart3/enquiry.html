@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enquiry Form | SA Coffee Johannesburg</title>
+<meta name="description" content="Enquire about SA Coffee services, retail beans, wholesale and catering.">
+<link rel="stylesheet" href="css/style.css"></head>
+<body>
+<header><h1>Enquiry Form</h1><nav><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="enquiry.html">Enquiry</a><a href="contact.html">Contact</a><a href="proposal.html">Proposal</a></nav></header>
+<main class="content content-single"><form id="enquiryForm">
+<label for="name">Full Name:</label><br><input type="text" id="name" required minlength="3"><br>
+<label for="email">Email:</label><br><input type="email" id="email" required><br>
+<label for="type">Type:</label><br><select id="type" required><option value="">Select...</option><option>Retail</option><option>Wholesale</option><option>Catering</option></select><br>
+<label for="message">Message:</label><br><textarea id="message" rows="4" required minlength="10"></textarea><br>
+<div id="formError" class="error"></div><div id="formSuccess" class="success"></div>
+<button type="submit">Submit Enquiry</button></form></main>
+<script src="js/script.js"></script>
+</body></html>
